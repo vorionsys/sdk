@@ -1,0 +1,32 @@
+name: Quickstart Example
+
+# Guards the published-package ensemble: installs from the LIVE npm registry
+# and runs the end-to-end example. This is the regression guard for the
+# class of failure where published packages drift incompatible (broken
+# 2026-04-21 → 2026-06-12, contracts >=1.0.0 vs a3i@0.4.2).
+
+on:
+  pull_request:
+    paths:
+      - "examples/quickstart/**"
+      - ".github/workflows/quickstart-example.yml"
+  schedule:
+    - cron: "0 14 * * 1" # weekly, Mondays 14:00 UTC
+  workflow_dispatch:
+
+jobs:
+  run-quickstart:
+    name: Install from npm + run end-to-end
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/quickstart
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install published packages
+        run: npm install
+      - name: Run the quickstart
+        run: node quickstart.mjs

@@ -1,0 +1,13 @@
+{
+  "name": "vorion-quickstart-example",
+  "private": true,
+  "type": "module",
+  "description": "Vorion in 60 lines: evidence-based trust scoring + pre-action capability gating",
+  "scripts": {
+    "start": "node quickstart.mjs"
+  },
+  "dependencies": {
+    "@vorionsys/a3i": "^0.4.2",
+    "@vorionsys/contracts": "^1.1.1"
+  }
+}
