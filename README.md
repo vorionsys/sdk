@@ -17,6 +17,15 @@ The SDK requires `@vorionsys/runtime` as a peer dependency:
 npm install @vorionsys/sdk @vorionsys/runtime
 ```
 
+> **Note for users of the currently published `@vorionsys/sdk@0.3.x`:** the published
+> 0.3.x line is a different module layout with additional peer dependencies. It
+> requires `npm install @vorionsys/sdk @vorionsys/a3i @vorionsys/atsf-core @vorionsys/security @vorionsys/runtime`,
+> and is currently incompatible with `@vorionsys/contracts >= 1.0.0` (the
+> `@vorionsys/a3i` package imports runtime exports removed in contracts 1.0.0 —
+> restoration tracked in [vorionsys/contracts#4](https://github.com/vorionsys/contracts/pull/4)).
+> This README documents the 1.0.0 rewrite in this repository, which has not yet
+> been published.
+
 ## What It Provides
 
 `@vorionsys/sdk` provides a simple interface for AI agent governance. It lets you:
