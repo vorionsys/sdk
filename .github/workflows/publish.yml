@@ -1,0 +1,33 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write   # OIDC trusted publishing + provenance (no NPM_TOKEN)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Upgrade npm (OIDC trusted publishing needs npm >= 11.5)
+        run: npm install -g npm@latest
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Publish (token-less via OIDC trusted publisher)
+        run: |
+          PKG_VERSION=$(node -e "process.stdout.write(require('./package.json').version)")
+          if npm view "@vorionsys/sdk@$PKG_VERSION" version > /dev/null 2>&1; then
+            echo "::notice::@vorionsys/sdk@$PKG_VERSION already on npm, skipping publish"
+          else
+            npm publish --access public --provenance
+          fi
