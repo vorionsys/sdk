@@ -1,0 +1,12 @@
+{
+  "name": "vorion-quickstart",
+  "private": true,
+  "type": "module",
+  "description": "Vorion in ~50 lines: a capability-gated, trust-scored agent on the published @vorionsys/sdk",
+  "scripts": {
+    "start": "node quickstart.mjs"
+  },
+  "dependencies": {
+    "@vorionsys/sdk": "^1.0.0"
+  }
+}

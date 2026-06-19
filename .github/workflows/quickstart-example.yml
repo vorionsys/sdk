@@ -1,0 +1,26 @@
+name: Quickstart example
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/quickstart/**'
+      - '.github/workflows/quickstart-example.yml'
+  pull_request:
+    paths:
+      - 'examples/quickstart/**'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install (pulls the published @vorionsys/sdk)
+        working-directory: examples/quickstart
+        run: npm install
+      - name: Run the quickstart
+        working-directory: examples/quickstart
+        run: node quickstart.mjs
